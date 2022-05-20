@@ -19,8 +19,11 @@ public class Document {
     private String urlDocument;
     private String categorieDocument;
 
-    @OneToMany(mappedBy = "documetnDepot")
+    @OneToMany(mappedBy = "documentDepot")
     private List<Depot> listDepotsDocument;
+
+    public Document() {
+    }
 
     public Document(String nomDocument, String urlDocument, String categorieDocument, List<Depot> listDepotsDocument) {
         this.nomDocument = nomDocument;

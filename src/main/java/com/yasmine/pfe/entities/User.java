@@ -26,19 +26,18 @@ public class User {
     private String imageUser;
     private Boolean isAdmin;
 
-    BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(10, new SecureRandom());
+
+    public User() {
+    }
 
     public User(String nomUser, String prenomUser, String emailUser, String Username, String passwordUser, String imageUser, Boolean isAdmin) {
         this.nomUser = nomUser;
         this.prenomUser = prenomUser;
         this.emailUser = emailUser;
         this.Username = Username;
-        this.passwordUser = bCryptPasswordEncoder.encode(passwordUser);
+        this.passwordUser = new BCryptPasswordEncoder(10, new SecureRandom()).encode(passwordUser);
         this.imageUser = imageUser;
         this.isAdmin = isAdmin;
-    }
-
-    public User() {
     }
 
     @OneToMany(mappedBy = "userDepots")
@@ -89,7 +88,7 @@ public class User {
     }
 
     public void setPasswordUser(String passwordUser) {
-        this.passwordUser = bCryptPasswordEncoder.encode(passwordUser);
+        this.passwordUser = new BCryptPasswordEncoder(10, new SecureRandom()).encode(passwordUser);
     }
 
     public String getImageUser() {
@@ -109,7 +108,8 @@ public class User {
     }
 
     public boolean verifyPassword(String passwordUser){
-        return bCryptPasswordEncoder.matches(passwordUser, this.passwordUser);
+        BCryptPasswordEncoder decrypt = new BCryptPasswordEncoder(10, new SecureRandom());
+        return decrypt.matches(passwordUser, this.passwordUser);
     }
 
     public List<Depot> getListDepot() {

@@ -18,14 +18,17 @@ public class Depot {
     private Date depotDate;
 
     @ManyToOne
-    private User userDepot;
+    private User userDepots;
 
     @ManyToOne
     private Document documentDepot;
 
-    public Depot(Date depotDate,User userDepot, Document documentDepot) {
+    public Depot() {
+    }
+
+    public Depot(Date depotDate,User userDepots, Document documentDepot) {
         this.depotDate = depotDate;
-        this.userDepot = userDepot;
+        this.userDepots = userDepots;
         this.documentDepot = documentDepot;
     }
 
@@ -46,11 +49,11 @@ public class Depot {
     }
 
     public User getUserDepot() {
-        return userDepot;
+        return userDepots;
     }
 
-    public void setUserDepot(User userDepot) {
-        this.userDepot = userDepot;
+    public void setUserDepot(User userDepots) {
+        this.userDepots = userDepots;
     }
 
     public Document getDocumentDepot() {
