@@ -10,26 +10,27 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "documents")
-public class Document {
+@Table(name = "documents_users")
+public class DocumentUser {
     
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long documentId;
     private String nomDocument;
     private String urlDocument;
     private String categorieDocument;
+    private String descriptionDocument;
 
     @OneToMany(mappedBy = "documentDepot")
     private List<Depot> listDepotsDocument;
 
-    public Document() {
+    public DocumentUser() {
     }
-
-    public Document(String nomDocument, String urlDocument, String categorieDocument, List<Depot> listDepotsDocument) {
-        this.nomDocument = nomDocument;
-        this.urlDocument = urlDocument;
-        this.categorieDocument = categorieDocument;
-        this.listDepotsDocument = listDepotsDocument;
+    
+    public DocumentUser(String nomDocument, String urlDocument, String categorieDocument, String desctiption) {
+        this.setNomDocument(nomDocument);
+        this.setUrlDocument(urlDocument);
+        this.setCategorieDocument(categorieDocument);
+        this.setDescriptionDocument(desctiption);
     }
 
     public Long getDocumentId() {
@@ -70,5 +71,13 @@ public class Document {
 
     public void setListDepot(List<Depot> listDepotsDocument) {
         this.listDepotsDocument = listDepotsDocument;
+    }
+
+    public String getDescriptionDocument() {
+        return descriptionDocument;
+    }
+
+    public void setDescriptionDocument(String descriptionDocument) {
+        this.descriptionDocument = descriptionDocument;
     }
 }

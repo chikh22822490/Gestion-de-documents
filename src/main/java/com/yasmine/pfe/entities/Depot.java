@@ -16,28 +16,26 @@ public class Depot {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long depotId;
     private Date depotDate;
+    private String statut;
 
     @ManyToOne
     private User userDepots;
 
     @ManyToOne
-    private Document documentDepot;
+    private DocumentUser documentDepot;
 
     public Depot() {
     }
 
-    public Depot(Date depotDate,User userDepots, Document documentDepot) {
+    public Depot(Date depotDate,User userDepots, DocumentUser documentDepot, String statut) {
         this.depotDate = depotDate;
         this.userDepots = userDepots;
         this.documentDepot = documentDepot;
+        this.statut = statut;
     }
 
     public Long getDepotId() {
         return depotId;
-    }
-
-    public void setDepotId(Long depotId) {
-        this.depotId = depotId;
     }
 
     public Date getDepotDate() {
@@ -56,12 +54,28 @@ public class Depot {
         this.userDepots = userDepots;
     }
 
-    public Document getDocumentDepot() {
+    public DocumentUser getDocumentDepot() {
         return documentDepot;
     }
 
-    public void setDocumentDepot(Document documentDepot) {
+    public void setDocumentDepot(DocumentUser documentDepot) {
         this.documentDepot = documentDepot;
+    }
+
+    public String getStatut() {
+        return statut;
+    }
+
+    public void setStatut(String statut) {
+        this.statut = statut;
+    }
+
+    public User getUserDepots() {
+        return userDepots;
+    }
+
+    public void setUserDepots(User userDepots) {
+        this.userDepots = userDepots;
     }
 
     
