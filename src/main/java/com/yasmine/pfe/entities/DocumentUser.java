@@ -2,12 +2,18 @@ package com.yasmine.pfe.entities;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "documents_users")
@@ -20,7 +26,9 @@ public class DocumentUser {
     private String categorieDocument;
     private String descriptionDocument;
 
-    @OneToMany(mappedBy = "documentDepot")
+    
+    @JsonIgnore
+    @OneToMany(mappedBy = "documentId", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
     private List<Depot> listDepotsDocument;
 
     public DocumentUser() {

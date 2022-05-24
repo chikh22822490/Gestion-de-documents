@@ -1,13 +1,21 @@
 package com.yasmine.pfe.entities;
 
-import java.sql.Date;
+import java.time.LocalDate;
+import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "depots")
@@ -15,22 +23,25 @@ public class Depot {
     
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long depotId;
-    private Date depotDate;
+    private LocalDate depotDate;
     private String statut;
 
+    @JsonBackReference
     @ManyToOne
-    private User userDepots;
+    @JoinColumn(name = "userId")
+    private User userId;
 
     @ManyToOne
-    private DocumentUser documentDepot;
+    @JoinColumn(name = "documentId")
+    private DocumentUser documentId;
 
     public Depot() {
     }
 
-    public Depot(Date depotDate,User userDepots, DocumentUser documentDepot, String statut) {
+    public Depot(LocalDate depotDate,User userId, DocumentUser documentId, String statut) {
         this.depotDate = depotDate;
-        this.userDepots = userDepots;
-        this.documentDepot = documentDepot;
+        this.userId = userId;
+        this.documentId = documentId;
         this.statut = statut;
     }
 
@@ -38,28 +49,28 @@ public class Depot {
         return depotId;
     }
 
-    public Date getDepotDate() {
+    public LocalDate getDepotDate() {
         return depotDate;
     }
 
-    public void setDepotDate(Date depotDate) {
-        this.depotDate = depotDate;
+    public void setDepotDate(LocalDate localDate) {
+        this.depotDate = localDate;
     }
 
     public User getUserDepot() {
-        return userDepots;
+        return userId;
     }
 
-    public void setUserDepot(User userDepots) {
-        this.userDepots = userDepots;
+    public void setUserDepot(User userId) {
+        this.userId = userId;
     }
 
     public DocumentUser getDocumentDepot() {
-        return documentDepot;
+        return documentId;
     }
 
-    public void setDocumentDepot(DocumentUser documentDepot) {
-        this.documentDepot = documentDepot;
+    public void setDocumentDepot(DocumentUser documentId) {
+        this.documentId = documentId;
     }
 
     public String getStatut() {
@@ -71,11 +82,11 @@ public class Depot {
     }
 
     public User getUserDepots() {
-        return userDepots;
+        return userId;
     }
 
-    public void setUserDepots(User userDepots) {
-        this.userDepots = userDepots;
+    public void setUserDepots(User userId) {
+        this.userId = userId;
     }
 
     

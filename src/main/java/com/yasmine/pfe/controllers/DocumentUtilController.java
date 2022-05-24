@@ -4,6 +4,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 import com.yasmine.pfe.entities.DocumentUtils;
+import com.yasmine.pfe.repositories.DocumentUtilRepository;
 import com.yasmine.pfe.services.interfaces.DocumentService;
 import com.yasmine.pfe.services.interfaces.DocumentUtilService;
 
@@ -31,6 +32,9 @@ public class DocumentUtilController {
     @Autowired
     DocumentService documentService;
 
+    @Autowired 
+    DocumentUtilRepository documentUtilRepository;
+
     @GetMapping(value = "/getAll")
     public List<DocumentUtils> getAllDocumentsUtils(){
         return documentUtilService.allDocuments();
@@ -44,7 +48,6 @@ public class DocumentUtilController {
             documentUtils.setCategorieDocument(categorie);
             documentUtils.setDescriptionDocument(description);
             documentUtils.setNomDocument(file.getOriginalFilename());
-            // String url = MvcUriComponentsBuilder.fromMethodName(DocumentUtilController.class, "getFile", file.getOriginalFilename()).build().toString();
             String url = MvcUriComponentsBuilder.fromMethodName(DocumentUtilController.class, "downloadFile", Paths.get(pathUtils+file.getOriginalFilename()).getFileName().toString()).build().toString();
             documentUtils.setUrlDocument(url);
             documentUtilService.saveDocument(documentUtils);
@@ -54,12 +57,19 @@ public class DocumentUtilController {
         }
     }
 
-    @GetMapping("/files/{filename:.+}")
+    @GetMapping("/{filename:.+}")
     @ResponseBody
     public ResponseEntity<Resource> downloadFile(@PathVariable String filename) {
         Resource file = documentService.load(filename, pathUtils);
         return ResponseEntity.ok()
             .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
     }
-    
+
+    @DeleteMapping("/deleteFile/{id}")
+    public String deleteFile(@PathVariable String id){
+        DocumentUtils documentUtils = documentUtilRepository.findDocumentById(Long.parseLong(id));
+        documentService.deleteFile(documentUtils.getNomDocument(), pathUtils);
+        documentUtilService.deletDocument(Long.parseLong(id));
+        return "Document supprimé avec succès";
+    }
 }

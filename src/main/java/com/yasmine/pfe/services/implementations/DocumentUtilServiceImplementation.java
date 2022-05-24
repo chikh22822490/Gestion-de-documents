@@ -21,7 +21,7 @@ public class DocumentUtilServiceImplementation implements DocumentUtilService{
     }
 
     @Override
-    public void updateUser(DocumentUtils documentUtils) {
+    public void updateDocument(DocumentUtils documentUtils) {
         documentUtilRepository.save(documentUtils);
     }
 
