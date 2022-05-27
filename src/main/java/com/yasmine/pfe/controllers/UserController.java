@@ -32,7 +32,10 @@ public class UserController {
 
     @PostMapping(value = "/addUser")
     public String addUser(@RequestParam String nomUser, @RequestParam String prenomUser, @RequestParam String emailUser, @RequestParam String username, @RequestParam String passwordUser, @RequestParam String imageUser){
-        User user = new User(nomUser, prenomUser, emailUser, username, passwordUser, imageUser, false);
+        boolean isAdmin=false;
+        if(userServices.allUsers().isEmpty())
+            isAdmin=true;
+        User user = new User(nomUser, prenomUser, emailUser, username, passwordUser, imageUser, isAdmin);
         userServices.saveUser(user);
         this.emailSenderService.sendEmail(user.getEmailUser(),"Compte créé.","Bonjour et bienvenu dans l'équipe TenStep.\n Cet e-mail est envoyé automatiquement lors de votre inscription sur notre plateforme de gestion des documents.\n Cordialement.");
         return "User ajouté avec succès";
