@@ -96,4 +96,10 @@ public class UserController {
         this.emailSenderService.sendEmail(user.getEmailUser(), "Vous n'etes plus admin", "Vous n'etes plus administrateur de la plateforme de gestion des documents TenStep.\nCordialement.");
         return message;
     }
+
+    @PostMapping(value = "/verifyPassword/{id}")
+    public boolean verifyPassword(@PathVariable String id, @RequestParam String password){
+        User user = userServices.findUserById(Long.parseLong(id));
+        return user.verifyPassword(password);
+    }
 }
