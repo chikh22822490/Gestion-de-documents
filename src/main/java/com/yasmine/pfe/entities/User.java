@@ -12,8 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -46,7 +44,6 @@ public class User {
         this.isAdmin = isAdmin;
     }
 
-    @JsonIgnore
     @OneToMany(mappedBy = "userId", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
     private List<Depot> listDepotsUser;
 
@@ -119,6 +116,7 @@ public class User {
         return decrypt.matches(passwordUser, this.passwordUser);
     }
 
+    @JsonIgnore
     public List<Depot> getListDepot() {
         return listDepotsUser;
     }

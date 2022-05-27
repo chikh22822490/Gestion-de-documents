@@ -1,11 +1,8 @@
 package com.yasmine.pfe.entities;
 
 import java.time.LocalDate;
-import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,8 +11,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "depots")
@@ -55,14 +50,6 @@ public class Depot {
 
     public void setDepotDate(LocalDate localDate) {
         this.depotDate = localDate;
-    }
-
-    public User getUserDepot() {
-        return userId;
-    }
-
-    public void setUserDepot(User userId) {
-        this.userId = userId;
     }
 
     public DocumentUser getDocumentDepot() {

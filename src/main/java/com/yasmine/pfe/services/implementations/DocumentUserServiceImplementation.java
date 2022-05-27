@@ -16,13 +16,13 @@ public class DocumentUserServiceImplementation implements DocumentUserService{
     DocumentUserRepository documentUserRepository;
 
     @Override
-    public void saveDocument(DocumentUser documentUtils) {
-        documentUserRepository.save(documentUtils);
+    public void saveDocument(DocumentUser documentUser) {
+        documentUserRepository.save(documentUser);
     }
 
     @Override
-    public void updateDocument(DocumentUser documentUtils) {
-        documentUserRepository.save(documentUtils);
+    public void updateDocument(DocumentUser documentUser) {
+        documentUserRepository.save(documentUser);
     }
 
     @Override

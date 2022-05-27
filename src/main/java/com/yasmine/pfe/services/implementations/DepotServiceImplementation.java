@@ -34,5 +34,10 @@ public class DepotServiceImplementation implements DepotService{
     public Depot getDepotById(Long id) {
         return depotRepository.findDepotById(id);
     }
+
+    @Override
+    public List<Depot> allDepotsByUser(Long id) {
+        return depotRepository.findDepotByUser(id);
+    }
     
 }
